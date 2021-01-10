@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>ここにタイトルがはいります</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <link href="css/style.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+  <div class="wrapper">
+    <svg width="160" height="160">
+      <defs>
+        <style>
+          .my-box {
+            fill: pink;
+          }
+
+          @keyframes eye {
+            to {
+              transform: translateX(-3px);
+            }
+          }
+
+          .eye {
+            animation: eye 1s infinite ease-in alternate;
+          }
+        </style>
+      </defs>
+      <rect x="0" y="0" width="160" height="160" fill="skyblue"></rect>
+
+      <ellipse cx="80" cy="80" rx="50" ry="35" fill="gold"></ellipse>
+      <g class="eye">
+        <circle cx="65" cy="75" r="5" fill="#000"></circle>
+        <circle cx="95" cy="75" r="5" fill="#000"></circle>
+      </g>
+
+      <polyline points="70, 35, 80, 45, 90, 35" stroke="gold" stroke-width="5" fill="none" stroke-linecap="round"></polyline>
+      <polygon points="80, 80, 60, 140, 100, 140" fill="gold"></polygon>
+      <path d="M 65,92 A 15,10 0 0 0 95,92 Z" fill="#000"></path>
+    </svg>
+
+    <svg width="160" height="160" viewBox="0 0 320 320">
+      <rect x="0" y="0" width="100" height="100" fill="skyblue"></rect>
+      <rect x="40" y="40" width="80" height="80" fill="blue"></rect>
+    </svg>
+
+
+    <div class="con" id="app">
+      <h1 class="con__ttl">
+        My Todos
+        <span class="info">({{ remainning.length }} / {{ todos.length }})</span>
+        <span @click="purge" class="con__btn">Purge</span>
+      </h1>
+
+      <ul class="con__menu">
+        <li v-for="(todo, index) in todos" class="con__list">
+          <input type="checkbox" v-model="todo.isDone">
+          <span :class="{done: todo.isDone}">{{ todo.title }}</span>
+          <span @click="deleteItem(index)" class="command">[x]</span>
+        </li>
+        <li v-show="!todos.length" class="con__list">Noting to do, yay</li>
+      </ul>
+
+      <!-- if と　for　を使う時は分ける -->
+      <!-- <ul v-if="todos.length">
+        <li v-for="(todo, index) in todos">
+          <input type="checkbox" v-model="todo.isDone">
+          <span :class="{done: todo.isDone}">{{ todo.title }}</span>
+          <span @click="deleteItem(index)" class="command">[x]</span>
+        </li>
+      </ul>
+      <ul v-else>
+        <li >Noting to do, yay</li>
+      </ul> -->
+
+      <form @submit.prevent="addItem">
+        <input type="text" v-model="newItem">
+        <input type="submit" value="Add">
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
