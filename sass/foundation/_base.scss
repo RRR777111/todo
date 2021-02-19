@@ -1,0 +1,12 @@
+@mixin  media-middle($middle-width: 768px){
+  @media screen and (min-width: $middle-width){
+    @content
+  }
+}
+
+@mixin media-large($large-width: 1024px) {
+  @media screen and (min-width: $large-width){
+    @content
+  }
+}
+

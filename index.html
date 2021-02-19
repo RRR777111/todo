@@ -3,34 +3,57 @@
 
 <head>
   <meta charset="utf-8">
-  <title>ここにタイトルがはいります</title>
+  <title>タスク管理ツール</title>
   <meta name="keywords" content="">
   <meta name="description" content="">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet" media="all">
 </head>
 
 <body>
   <div class="wrapper">
     <div class="con" id="app">
-      <h1 class="con__ttl">
-        My Todos
-        <span class="info">({{ remainning.length }} / {{ todos.length }})</span>
-        <span @click="purge" class="con__btn">Purge</span>
-      </h1>
+
+      <div class="con__box">
+        <h2 class="con__ttl">
+          残りの目標数
+          <span class="info">({{ remainning.length }} / {{ todos.length }})</span>
+        </h2>
+        
+
+        <form @submit.prevent="addItem" class="form">
+          <div class="form__txt">
+            <label for="text" class="form__ttl">ここに入力しましょう</label>
+            <input  id="text" type="text"  v-model="newItem" class="form__txt">
+          </div>
+
+          <input type="submit" value="追加" class="form__btn">
+        </form>
+
+      </div>
 
       <ul class="con__menu">
+
         <li v-for="(todo, index) in todos" class="con__list">
-          <input type="checkbox" v-model="todo.isDone">
           <span :class="{done: todo.isDone}">{{ todo.title }}</span>
-          <span @click="deleteItem(index)" class="command">[x]</span>
+
+          <span class="material-icons">
+            <input id="checkbox" type="checkbox" v-model="todo.isDone" class="checkbox">
+            <label for="checkbox" class="check">done</label>
+          </span>
+
+          <span @click="deleteItem(index)" class="command material-icons">delete_outline</span>
         </li>
-        <li v-show="!todos.length" class="con__list">Noting to do, yay</li>
+
+        <li v-show="!todos.length" class="con__list">目標を入力してみましょう！</li>
       </ul>
 
-      <form @submit.prevent="addItem">
-        <input type="text" v-model="newItem">
-        <input type="submit" value="Add">
-      </form>
+
+      <p class="con__txt">
+        <span @click="purge" class="con__btn">すべて削除</span>
+      </p>
+      
     </div>
   </div>
 
