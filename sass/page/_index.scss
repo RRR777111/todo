@@ -1,26 +1,50 @@
+body,
+html {
+  height: 100%;
+}
+
 .wrapper {
-  padding-top: 3%;
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
   font-family: "Noto Sans JP";
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 32px;
+  padding: 4%;
+  background: #eee;
+
+  &__ttl {
+    font-size: 18px;
+
+    @include media-middle {
+      font-size: 32px;
+    }
+  }
+}
+
+.main {
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 
 .con {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
 
   &__box {
-    margin-bottom: 18px;
-    padding: 2%;
-    width: 365px;
+    padding: 2% 2% 0;
+    margin: 0 auto 32px;
+    width: 90%;
     border: 1px solid #ccc;
     border-radius: 4px;
-
-    @include media-middle {
-      width: 768px;
-    }
   }
 
   &__ttl {
-    margin-bottom: 18px;
+    margin-bottom: 32px;
     font-size: 18px;
     letter-spacing: 0.1em;
     text-align: center;
@@ -28,24 +52,31 @@
 
 
   &__menu {
-    margin-bottom: 18px;
+    margin-bottom: 32px;
     padding: 0 2%;
   }
 
   &__list {
     margin-bottom: 2%;
+    padding: 0 3%;
     list-style-type: none;
     font-size: 18px;
     letter-spacing: 0.1em;
+
+    & .done {
+      text-decoration: line-through;
+      color: #ddd;
+    }
   }
 
   &__btn {
-    margin: 0 auto;
-    padding: 18px;
+    margin: 0 auto 32px;
+    padding: 16px 0;
     width: 200px;
     border-radius: 4px;
     background: rgb(241, 126, 126);
     color: #fff;
+    font-size: 18px;
     font-weight: normal;
     cursor: pointer;
     display: flex;
@@ -60,15 +91,11 @@
 
 form {
   padding: 0 2%;
-
-  &__ttl {
-    margin: 10px;
-    display: block;
-  }
 }
 
-label[for=text]{
+label[for=text] {
   margin-bottom: 18px;
+  font-size: 18px;
   display: block;
 }
 
@@ -86,30 +113,58 @@ input[type=submit] {
   padding: 12px 48px;
   width: 200px;
   border-radius: 4px;
-  background: rgb(154, 226, 230);
+  font-size: 18px;
+  background: rgb(110, 173, 224);
+  color: #fff;
   cursor: pointer;
   display: block;
 }
 
-.check {
-  padding: 12px;
-  background: rgb(240, 202, 112);
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  user-select: none;
-  transition: .1s;
+// ---------------------------------------------
+// .check {
+//   padding: 12px;
+//   background: rgb(240, 202, 112);
+//   color: #fff;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   user-select: none;
+//   transition: .1s;
 
-  &:hover {
-    opacity: 0.8;
+//   &:hover {
+//     opacity: 0.8;
+//   }
+// }
+
+// input[type=checkbox]:checked~.check {
+//   background: rgb(168, 240, 112);
+//   color: #000;
+// }
+// ---------------------------------------------
+input[type=checkbox] {
+  width: 47px;
+  height: 47px;
+  border-radius: 12px;
+  display: inline-block;
+  vertical-align: -40%;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgb(163, 226, 138);
   }
 }
 
-input[type=checkbox]:checked~.check {
-  background: rgb(168, 240, 112);
-  color: #000;
+input[type=checkbox]:checked {
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(253, 253, 253, 0.9);
+  }
 }
-
 
 .command {
   padding: 12px;
@@ -121,4 +176,12 @@ input[type=checkbox]:checked~.check {
   &:hover {
     opacity: 0.8;
   }
+}
+
+.footer {
+  padding: 4%;
+  background: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

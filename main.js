@@ -27,18 +27,19 @@
           title: this.newItem,
           isDone: false
         };
+
         this.todos.push(item);
         this.newItem = '';
       },
       
       deleteItem: function (index) {
-        if (confirm('are you sure?')) {
+        if (confirm('このアイテムを削除してもよろしいでしょうか?')) {
           this.todos.splice(index, 1);
         }
       },
 
       purge: function () {
-        if (!confirm('delete finished?')) {
+        if (!confirm('完了したアイテムを削除してもよろしいでしょうか?')) {
           return;
         }
         this.todos = this.remainning;

@@ -6,6 +6,7 @@
   <title>タスク管理ツール</title>
   <meta name="keywords" content="">
   <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet" media="all">
@@ -13,48 +14,57 @@
 
 <body>
   <div class="wrapper">
-    <div class="con" id="app">
+    <header class="header">
+      <h1 class="header__ttl">タスク管理ツール</h1>
+    </header>
+    <main class="main">
 
-      <div class="con__box">
-        <h2 class="con__ttl">
-          残りの目標数
-          <span class="info">({{ remainning.length }} / {{ todos.length }})</span>
-        </h2>
-        
+      <div class="con" id="app">
+        <div class="con__box">
+          <h2 class="con__ttl">
+            現在のタスク数
+            <span class="info">({{ remainning.length }} / {{ todos.length }})</span>
+          </h2>
 
-        <form @submit.prevent="addItem" class="form">
-          <div class="form__txt">
-            <label for="text" class="form__ttl">ここに入力しましょう</label>
-            <input  id="text" type="text"  v-model="newItem" class="form__txt">
-          </div>
 
-          <input type="submit" value="追加" class="form__btn">
-        </form>
+          <form @submit.prevent="addItem" class="form">
+            <div class="form__txt">
+              <label for="text" class="form__ttl">タスクを追加</label>
+              <input id="text" type="text" v-model="newItem" class="form__txt">
+            </div>
+
+            <input type="submit" value="追加" class="form__btn">
+          </form>
+
+        </div>
+
+        <ul class="con__menu">
+
+          <li v-for="(todo, index) in todos" class="con__list">
+            <span :class="{done: todo.isDone}">{{ todo.title }}</span>
+
+            <span class="material-icons">
+              <input id="checkbox" type="checkbox" v-model="todo.isDone" value="Add" class="checkbox">
+              <!-- <label for="checkbox" class="check">done</label> -->
+              <!-- チェックボックスinputを labelに紐付けたいが複数要素を生成すると2こ目移行にも同じidが付与されてしまい、バグってしまう-->
+            </span>
+
+            <span @click="deleteItem(index)" class="command material-icons">delete_outline</span>
+          </li>
+
+          <li v-show="!todos.length" class="con__list">タスクを追加してみましょう</li>
+        </ul>
+
+        <p class="con__txt">
+          <span @click="purge" class="con__btn">すべて削除</span>
+        </p>
 
       </div>
+    </main>
 
-      <ul class="con__menu">
-
-        <li v-for="(todo, index) in todos" class="con__list">
-          <span :class="{done: todo.isDone}">{{ todo.title }}</span>
-
-          <span class="material-icons">
-            <input id="checkbox" type="checkbox" v-model="todo.isDone" class="checkbox">
-            <label for="checkbox" class="check">done</label>
-          </span>
-
-          <span @click="deleteItem(index)" class="command material-icons">delete_outline</span>
-        </li>
-
-        <li v-show="!todos.length" class="con__list">目標を入力してみましょう！</li>
-      </ul>
-
-
-      <p class="con__txt">
-        <span @click="purge" class="con__btn">すべて削除</span>
-      </p>
-      
-    </div>
+    <footer class="footer">
+      <p class="footer__txt"><small class="footer__copy">&copy;2021.2.20 hara</small></p>
+    </footer>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
